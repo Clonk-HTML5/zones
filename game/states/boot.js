@@ -1,8 +1,8 @@
 GlobalGame = {
-	thumbRows : 9,
-	thumbCols : 12,
-	thumbWidth : 64,
-	thumbHeight : 64,
+	thumbRows : 5,
+	thumbCols : 7,
+	thumbWidth : 80,
+	thumbHeight : 80,
 	thumbSpacing : 1,
 }
 
@@ -14,6 +14,8 @@ Boot.prototype = {
     this.load.image('preloader', 'assets/preloader.gif');
   },
   create: function() {
+    this.stage.backgroundColor = '#f1c40f';
+      
     this.game.input.maxPointers = 1;
     
     this.stage.disableVisibilityChange = true;
@@ -21,14 +23,14 @@ Boot.prototype = {
     if (this.game.device.desktop)
     {
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.scale.setMinMax(480, 260, 800, 600);
+        this.scale.setMinMax(480, 260, 568, 406);
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
     }
     else
     {
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.scale.setMinMax(480, 260, 800, 600);
+        this.scale.setMinMax(480, 260, 568, 406);
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
         this.scale.forceOrientation(true, false);

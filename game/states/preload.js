@@ -13,11 +13,13 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
     this.load.image('yeoman', 'assets/yeoman-logo.png');
-    this.load.atlasJSONHash('sprites', 'assets/sprites.png', 'assets/sprites.json');
+//    this.load.atlasJSONHash('sprites', 'assets/sprites.png', 'assets/sprites.json');
+    this.load.atlasJSONHash('sprites', 'assets/allsprites.png', 'assets/allsprites.json');
     this.load.spritesheet('timer', 'assets/timer.png', 150, 20);
 
   },
   create: function() {
+    this.stage.backgroundColor = '#f1c40f';
     this.asset.cropEnabled = false;
   },
   update: function() {

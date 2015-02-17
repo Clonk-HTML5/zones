@@ -12,6 +12,8 @@
         this.level = options.level ? options.level : 1;
     },
     create: function() {
+        this.stage.backgroundColor = '#292833';
+        
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
         
 		this.zoneThumbsGroup = this.game.add.group();
@@ -26,7 +28,7 @@
                     var xPoszoneThumb = this.offsetX+j*(GlobalGame.thumbWidth+GlobalGame.thumbSpacing);
                     var yPoszoneThumb = this.offsetY+i*(GlobalGame.thumbHeight+GlobalGame.thumbSpacing);
                     
-					var zoneThumb = this.zoneThumbsGroup.create(xPoszoneThumb, yPoszoneThumb, "sprites", "sprites/colorblocks/blue");
+					var zoneThumb = this.zoneThumbsGroup.create(xPoszoneThumb, yPoszoneThumb, "sprites", "sprites/squares/lightblue");
                     zoneThumb.balls = 0;
                     zoneThumb.ballsArray = [];
                     zoneThumb.body.allowGravity = false;
@@ -36,7 +38,7 @@
                         this.leftBottomEdgeField = zoneThumb;
                         this.leftBottomEdgeField.active = true;
                         this.leftBottomEdgeField.player = this.player;
-                        this.leftBottomEdgeField.frameName = "sprites/colorblocks/red";
+                        this.leftBottomEdgeField.frameName = "sprites/squares/red";
                     } 
 //                    else if(xPoszoneThumb == this.offsetX && yPoszoneThumb == this.offsetY){
 //                        this.leftTopEdgeField = zoneThumb;
@@ -53,7 +55,7 @@
                         this.rightTopEdgeField = zoneThumb;
                         this.rightTopEdgeField.active = true;
                         this.rightTopEdgeField.player = this.enemyPlayer;
-                        this.rightTopEdgeField.frameName = "sprites/colorblocks/darkgray";
+                        this.rightTopEdgeField.frameName = "sprites/squares/grey";
                     }
                     
 				}
@@ -69,6 +71,7 @@
         
         this.game.input.onDown.add(this.beginSwipe, this);
         
+		this.game.add.plugin(Phaser.Plugin.Debug);
     },
     update: function() {
       this.game.physics.arcade.collide(this.balls, this.zoneThumbsGroup, null, this.ballZoneCollision, this);
@@ -132,7 +135,7 @@
                 if(this.checkOverlap(ball, ball.zone)){
                     if(this.checkOverlapAndIsInsideObject(ball, ball.zone)){
                         ball.ballIsMoving = false;
-                        var timerTotalTime = Math.round(40 / ball.zone.balls);
+                        var timerTotalTime = Math.round(100 / ball.zone.balls);
                         if(ball.zone.player !== this.player){
                             if(ball.zone.indicator){
 //                                ball.zone.indicator.setTime(timerTotalTime);
@@ -150,7 +153,7 @@
                                         if(ball.zone.indicator) ball.zone.indicator.remove();
                                         ball.zone.player = ball.player;
                                         if(ball.zone.player === ball.player){
-                                            ball.zone.frameName = ball.player === playerId ? 'sprites/colorblocks/red' : 'sprites/colorblocks/darkgray';
+                                            ball.zone.frameName = ball.player === playerId ? 'sprites/squares/red' : 'sprites/squares/grey';
                                             ball.zone.active = true;
                                         }
                                     }
@@ -195,6 +198,8 @@
     },
     ballCollisionHandler: function(ball, otherBall) {
         if(ball.player !== otherBall.player){
+            if(ball.zone.indicator) ball.zone.indicator.remove();
+            if(otherBall.zone.indicator) otherBall.zone.indicator.remove();
             ball.kill();
             otherBall.kill();
         }
